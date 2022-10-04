@@ -1,3 +1,22 @@
+<script setup>
+import { ref, computed } from "vue";
+import data from "./assets/data/data.json";
+
+const search = ref("");
+const group = ref("");
+const type = ref("");
+
+const filteredData = computed(() => {
+  return data.filter((item) => {
+    return (
+      item.name.toLowerCase().includes(search.value.toLowerCase()) &&
+      (group.value === "" || item.group === group.value) &&
+      (type.value === "" || item.type === type.value)
+    );
+  });
+});
+</script>
+
 <template>
   <div id="app">
     <div class="container">
@@ -60,22 +79,3 @@
     </div>
   </div>
 </template>
-
-<script setup>
-import { ref, computed } from "vue";
-import data from "./assets/data/data.json";
-
-const search = ref("");
-const group = ref("");
-const type = ref("");
-
-const filteredData = computed(() => {
-  return data.filter((item) => {
-    return (
-      item.name.toLowerCase().includes(search.value.toLowerCase()) &&
-      (group.value === "" || item.group === group.value) &&
-      (type.value === "" || item.type === type.value)
-    );
-  });
-});
-</script>
